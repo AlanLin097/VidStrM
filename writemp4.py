@@ -12,10 +12,12 @@ length = 20
 # Create an output movie file (make sure resolution/frame rate matches input video!)
 #fourcc = cv2.VideoWriter_fourcc(*'MP4V')
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-output_movie = cv2.VideoWriter('output1.mp4', fourcc, length, (640, 480))
+output_movie = cv2.VideoWriter('output2.mp4', fourcc, length, (320, 240))
 
 cap = cv2.VideoCapture(0)
 cap.open(0)
+cap.set(3,320)
+cap.set(4,240)
 
 frame_number = 0
 frameBuffer = []

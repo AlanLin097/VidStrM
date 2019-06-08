@@ -1,6 +1,6 @@
 import cv2
 #获得视频的格式
-videoCapture = cv2.VideoCapture('/home/jim/Desktop/video_stream/VidStrM/writeOutput1.mp4')
+videoCapture = cv2.VideoCapture('/home/jim/Desktop/video_stream/VidStrM/output2.mp4')
 
 #获得码率及尺寸
 fps = videoCapture.get(cv2.CAP_PROP_FPS)
