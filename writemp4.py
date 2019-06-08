@@ -16,9 +16,10 @@ output_movie = cv2.VideoWriter('output2.mp4', fourcc, length, (320, 240))
 
 cap = cv2.VideoCapture(0)
 cap.open(0)
-cap.set(3,320)
-cap.set(4,240)
-
+##########################
+cap.set(3,320) # width
+cap.set(4,240) # length
+##########################
 frame_number = 0
 frameBuffer = []
 T = time.time()
