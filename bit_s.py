@@ -5,7 +5,7 @@ import numpy as np
 # (use "127.0.0.1" for localhost on local machine)
 # Create a socket and bind the socket to the addr
 # TODO start
-HOST, PORT = '127.0.0.1', 12200
+HOST, PORT = '10.42.0.1', 12200
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
 s.bind ( ( HOST , PORT ) )
 # TODO end
