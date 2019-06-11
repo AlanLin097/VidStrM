@@ -7,7 +7,7 @@ import time
 # PLEASE NOTE: This example requires OpenCV (the `cv2` library) to be installed only to read from your webcam.
 # OpenCV is *not* required to use the face_recognition library. It's only required if you want to run this
 # specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
-length = 20
+length = 10
  
 # Create an output movie file (make sure resolution/frame rate matches input video!)
 #fourcc = cv2.VideoWriter_fourcc(*'MP4V')
@@ -24,36 +24,41 @@ cap.set(4,240) # length
 
 vidNum = 0
 while(True):
-    if vidNum > 10:
+    if vidNum > 20:
         break
     output_movie = cv2.VideoWriter('output'+str(vidNum)+'.mp4', fourcc, length, (320, 240))
     frame_number = 0
-    frameBuffer = []
+    # frameBuffer = []
     T = time.time()
     while (True):
-        if frame_number == 100:
-            break
+        fT = time.time()
         ret, frame = cap.read()
         if ret == False:
             print('f')
             continue
-        frameBuffer.append(frame)
+        output_movie.write(frame)
 
         # Grab a single frame of video
         
         frame_number += 1
+        if frame_number == 50:
+            break
+        dt = time.time()-fT
+        if (dt<0.1):
+            time.sleep(0.1-dt)
 
 
     print(time.time() - T)
-    for frame in frameBuffer:
-        cv2.imshow('frame', frame)
-        # print(f, end = ' ')
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-        # Write the resulting image to the output video file
-        output_movie.write(frame)
+    # for frame in frameBuffer:
+    #     cv2.imshow('frame', frame)
+    #     # print(f, end = ' ')
+    #     if cv2.waitKey(1) & 0xFF == ord('q'):
+    #         break
+    #     # Write the resulting image to the output video file
+    #     output_movie.write(frame)
     print("end write of"+ str(vidNum))
-
+    # f = open("vidnum.txt", 'w')
+    # f.write(str(vidNum))
     vidNum+=1
 # All done!
 

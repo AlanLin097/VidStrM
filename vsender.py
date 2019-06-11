@@ -29,17 +29,24 @@ while(True):
         vidNum = 0
         try:
             while (True):
-                if vidNum >10:
-                    break
-                f = open('output'+str(vidNum)+'.mp4','rb')
+                T = time.time()
+                try:
+                    f = open('output'+str(vidNum)+'.mp4','rb')
+                except:
+                    time.sleep(0.5)
+                    continue
                 vid = f.read()
                 client.send(str(len(vid)).encode())
-                time.sleep(0.01)
+                time.sleep(0.1)
+                client.send(b"")
                 client.send(vid)
                 # print(currentFrame)
                 # currentFrame+=1
                 vidNum+=1
                 print(str(vidNum)+"sent")
+                dt = time.time()-T
+                if (dt<5):
+                    time.sleep(5-dt)
         except ValueError:
             print("except")
             client.close()

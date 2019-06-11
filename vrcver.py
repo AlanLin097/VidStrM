@@ -14,6 +14,7 @@ PORT = 12200
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 vidNum = 0
+T = time.time()
 while True:
     # if vidNum > 10:
     #     break
@@ -31,5 +32,7 @@ while True:
     f = open("op"+str(vidNum)+".mp4", 'wb')
     f.write(vid)
     vidNum+=1
+    dt = time.time() - T
+    print(dt)
 s.close()
 cv2.destroyAllWindows()
