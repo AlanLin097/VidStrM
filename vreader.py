@@ -3,7 +3,11 @@ import os
 import time
 vidNum = 0
 while(True):
-    videoCapture = cv2.VideoCapture('./op'+str(vidNum)+'.mp4')
+    try:
+        os.rename("./op0.mp4", "./op1.mp4")
+    except:
+        print("first")
+    videoCapture = cv2.VideoCapture('./op1.mp4')
     if videoCapture == -1:
         print("VidStrm Error: network error!!")
         time.sleep(0.5)
@@ -24,5 +28,5 @@ while(True):
         success, frame = videoCapture.read() #获取下一帧
     
     videoCapture.release()
-    os.remove("./op"+str(vidNum)+ '.mp4')
+    os.remove('./op1.mp4')
     vidNum+=1

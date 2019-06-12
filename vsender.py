@@ -6,6 +6,7 @@ import time
 # (use "127.0.0.1" for localhost on local machine)
 # Create a socket and bind the socket to the addr
 # TODO start
+# HOST, PORT = '10.42.0.1', 12200
 HOST, PORT = '127.0.0.1', 12200
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
 s.bind ( ( HOST , PORT ) )
@@ -26,15 +27,27 @@ while(True):
         print('Got connection from', address)
         # TODO end
         print(str(address)+" connected")
-        vidNum = 0
+        vidNum = -1
+        counter = 0
+        qua = 1
         try:
             while (True):
                 T = time.time()
-                try:
-                    f = open('output'+str(vidNum)+'.mp4','rb')
-                except:
-                    time.sleep(0.5)
-                    continue
+                data = client.recv(1024)
+                msg = data.decode().split()
+                qua = int(msg[0])
+                f = int(msg[1])
+                qua = msg[0]
+                if ( f < counter):
+                    if(f == -1):
+                        vidNum = counter
+                    elif(f == -2):
+                        vidNum +=1
+                    else:
+                        vidNum = f
+                else:
+                    print("frame does not exist")
+                f = open(str(qua) + 'output'+str(vidNum)+'.mp4','rb')
                 vid = f.read()
                 client.send(str(len(vid)).encode())
                 time.sleep(0.1)
@@ -42,7 +55,7 @@ while(True):
                 client.send(vid)
                 # print(currentFrame)
                 # currentFrame+=1
-                vidNum+=1
+                counter+=1
                 print(str(vidNum)+"sent")
                 dt = time.time()-T
                 if (dt<5):
